@@ -1,0 +1,44 @@
+# created-by: snowflake-apps-create; template=nextjs-template; skill-version=1.0.0
+version: 2
+
+name: ABARROTERA_360
+label: "Abarrotera 360"
+description: "Centro de mando comercial: mapas de la red de abasto, pronóstico, quiebres, voz del cliente y el AGENTE_COMERCIAL embebido."
+icon: "public/icon.svg"
+
+database: TEC_DEMO
+schema: APPS
+query_warehouse: TEC_WH
+
+runtime: node
+
+install:
+  commands:
+    # package.json cambió (deck.gl, h3-js, d3-sankey, react-force-graph-2d): reconciliar el lockfile.
+    - ["npm", "install", "--include=dev"]
+
+build:
+  commands:
+    - ["npm", "run", "build"]
+    # Modo standalone
+    - ["cp", "-r", ".next/static", ".next/standalone/.next/static"]
+    - ["cp", "-r", "public", ".next/standalone/public"]
+    # El standalone trae sus propios node_modules
+    - ["rm", "-rf", "node_modules"]
+
+run:
+  command: ["node", ".next/standalone/server.js"]
+
+environment_variables:
+  - name: SNOWFLAKE_WAREHOUSE
+    value: "TEC_WH"
+
+ignore:
+  - node_modules
+  - .env*
+  - __pycache__
+  - "*.pyc"
+  - .next
+  - .git
+  - snowflake.log
+  - tsconfig.tsbuildinfo

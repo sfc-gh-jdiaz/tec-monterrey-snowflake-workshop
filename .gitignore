@@ -1,0 +1,22 @@
+# Sistema operativo y editores
+.DS_Store
+.vscode/
+.idea/
+
+# App (se regeneran con npm install y npm run build)
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+
+# Secretos y logs locales
+.env*
+!.env.example
+*.log
+
+# Python / notebooks
+__pycache__/
+.ipynb_checkpoints/
+
+# Respaldos locales (pueden contener tokens reales)
+_respaldo*/
